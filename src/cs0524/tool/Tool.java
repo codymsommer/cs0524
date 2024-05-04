@@ -2,6 +2,9 @@ package cs0524.tool;
 
 import cs0524.Configuration;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Tool {
     private final String code;
     private final ToolType type;
@@ -27,5 +30,20 @@ public class Tool {
 
     public String getBrand() {
         return brand;
+    }
+
+    public double getRate(LocalDate date) {
+        return getType().getRate(date);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Tool tool
+                && code.equals(tool.code) && type.equals(tool.type) && brand.equals(tool.brand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, type, brand);
     }
 }

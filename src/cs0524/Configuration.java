@@ -21,7 +21,7 @@ public class Configuration {
 
     private final Set<Holiday> holidays = new HashSet<>();
     private final Map<String, ToolType> toolTypes = new HashMap<>();
-    private final Set<Tool> tools = new HashSet<>();
+    private final Map<String, Tool> tools = new HashMap<>();
 
     public void load() {
         throw new UnsupportedOperationException("Not yet implemented");
@@ -49,11 +49,23 @@ public class Configuration {
         toolTypes.put(toolType.getName(), toolType);
     }
 
-    public void addTool(Tool tool) {
-        tools.add(tool);
+    public ToolType getToolType(String name) {
+        if (toolTypes.containsKey(name)) {
+            return toolTypes.get(name);
+        } else {
+            throw new IllegalArgumentException(name + " is not a valid type of Tool");
+        }
     }
 
-    public ToolType getToolType(String name) {
-        return toolTypes.get(name);
+    public void addTool(Tool tool) {
+        tools.put(tool.getCode(), tool);
+    }
+
+    public Tool getTool(String code) {
+        if (tools.containsKey(code)) {
+            return tools.get(code);
+        } else {
+            throw new IllegalArgumentException(code + " is not a valid Tool code");
+        }
     }
 }

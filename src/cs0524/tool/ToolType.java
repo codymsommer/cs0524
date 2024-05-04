@@ -3,6 +3,7 @@ package cs0524.tool;
 import java.time.LocalDate;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 
 import cs0524.day.DayType;
 
@@ -41,5 +42,16 @@ public class ToolType {
 
     public double getRate(LocalDate date) {
         return rates.get(DayType.from(date));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof ToolType toolType
+                && name.equals(toolType.name) && rates == toolType.rates;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, rates);
     }
 }
