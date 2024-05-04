@@ -27,6 +27,24 @@ class RelativeHolidayTest {
     }
 
     @Test
+    public void test_RelativeHoliday_invalidInstance() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new RelativeHoliday("Test Day", "1st", "SUNDAY", "JUNE"));
+    }
+
+    @Test
+    public void test_RelativeHoliday_invalidDay() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new RelativeHoliday("Test Day", "FIRST", "SUNDAE", "JUNE"));
+    }
+
+    @Test
+    public void test_RelativeHoliday_invalidMonth() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new RelativeHoliday("Test Day", "FIRST", "SUNDAY", "JUME"));
+    }
+
+    @Test
     void test_name() {
         assertEquals("Memorial Day", memorialDay.name());
         assertEquals("Labor Day", laborDay.name());

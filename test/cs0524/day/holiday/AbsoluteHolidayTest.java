@@ -24,6 +24,24 @@ class AbsoluteHolidayTest {
     }
 
     @Test
+    public void test_AbsoluteHoliday_invalidDay() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("Day 0", 0, "MAY"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("Negative Day", -1, "MAY"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("February 30th", 30, "FEBRUARY"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("April 31st", 31, "APRIL"));
+    }
+
+    @Test
+    public void test_AbsoluteHoliday_invalidMonth() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("Star Wars Day", 4, "MEH"));
+    }
+
+    @Test
     public void test_name() {
         assertEquals("New Year's Day", newYearsDay.name());
         assertEquals("Independence Day", independenceDay.name());

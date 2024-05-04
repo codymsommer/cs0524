@@ -16,7 +16,15 @@ public class AbsoluteHoliday implements Holiday {
 
     public AbsoluteHoliday(String name, int dayOfMonth, Month month) {
         this.name = name;
+        if (dayOfMonth < 1) {
+            throw new IllegalArgumentException("Day must not be less than 1");
+        } else if (dayOfMonth > 31) {
+            throw new IllegalArgumentException("Day must not be more than 31");
+        }
         this.dayOfMonth = dayOfMonth;
+        if (month.maxLength() < dayOfMonth) {
+            throw new IllegalArgumentException(month.name() + " contains less than " + dayOfMonth + " days");
+        }
         this.month = month;
     }
 
