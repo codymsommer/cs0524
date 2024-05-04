@@ -16,4 +16,16 @@ public class Tool {
         this.type = type;
         this.brand = brand;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public ToolType getType() {
+        return type;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
 }

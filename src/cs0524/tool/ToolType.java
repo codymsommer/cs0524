@@ -10,6 +10,10 @@ public class ToolType {
     private final String name;
     private final EnumMap<DayType, Double> rates;
 
+    public ToolType(String name, double rate) {
+        this(name, rate, false, false, false);
+    }
+
     public ToolType(String name, double rate, boolean freeOnWeekdays, boolean freeOnWeekends, boolean freeOnHolidays) {
         this(name,
                 freeOnWeekdays ? 0 : rate,

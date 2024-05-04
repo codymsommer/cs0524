@@ -28,7 +28,7 @@ class ToolTypeTest {
 
     @Test
     void test_ToolType() {
-        ToolType toolType = new ToolType("tool", 1, false, false, false);
+        ToolType toolType = new ToolType("tool", 1);
         assertAll("never free",
                 () -> assertEquals(1, toolType.getRate(weekday)),
                 () -> assertEquals(1, toolType.getRate(weekend)),
