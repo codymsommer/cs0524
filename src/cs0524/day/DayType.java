@@ -11,7 +11,7 @@ public enum DayType {
 
     public static DayType from(LocalDate date) {
         for (Holiday holiday : Configuration.singleton().getHolidays()) {
-            if (holiday.is(date) || holiday.isObserved(date)) {
+            if (holiday.isObserved(date)) {
                 return HOLIDAY;
             }
         }

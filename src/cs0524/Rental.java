@@ -69,37 +69,37 @@ public class Rental {
 
     public List<LocalDate> getChargeDays() {
         return getRentalDays().stream()
-                .filter(d -> tool.getRate(d) > 0)
+                .filter(d -> tool.getRate(d).compareTo(BigDecimal.ZERO) > 0)
                 .toList();
     }
 
-    public double getRate() {
+    public BigDecimal getRate() {
         return tool.getRate(getChargeDays().getFirst());
     }
 
-    public double calculateSubTotal() {
+    public BigDecimal calculateSubTotal() {
         return roundedSum(getRates());
     }
 
-    public double calculateDiscount() {
-        double percentage = (double) getDiscount() / 100;
-        return roundedSum(getRates().map(r -> r * percentage));
+    public BigDecimal calculateDiscount() {
+        BigDecimal percentage = BigDecimal.valueOf(getDiscount()).scaleByPowerOfTen(-2);
+        return roundedSum(getRates().map(r -> r.multiply(percentage)));
     }
 
-    public double calculateFinalTotal() {
-        return calculateSubTotal() - calculateDiscount();
+    public BigDecimal calculateFinalTotal() {
+        return calculateSubTotal().subtract(calculateDiscount());
     }
 
-    Stream<Double> getRates() {
+    Stream<BigDecimal> getRates() {
         return getChargeDays().stream().map(tool::getRate);
     }
 
-    static double roundedSum(Stream<Double> amounts) {
-        return roundHalfUp(amounts.reduce(0.0, Double::sum));
+    static BigDecimal roundedSum(Stream<BigDecimal> amounts) {
+        return roundHalfUp(amounts.reduce(BigDecimal.ZERO, BigDecimal::add));
     }
 
-    static double roundHalfUp(double amount) {
-        return new BigDecimal(String.valueOf(amount)).setScale(2, RoundingMode.HALF_UP).doubleValue();
+    static BigDecimal roundHalfUp(BigDecimal amount) {
+        return amount.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void printRentalAgreement() {
@@ -124,7 +124,7 @@ public class Rental {
         System.out.println("Final charge: " + format(calculateFinalTotal()));
     }
 
-    static String format(double amount) {
+    static String format(BigDecimal amount) {
         return NumberFormat.getCurrencyInstance().format(amount);
     }
 

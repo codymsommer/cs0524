@@ -1,5 +1,6 @@
 package cs0524.tool;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.EnumMap;
 import java.util.Map;
@@ -9,21 +10,21 @@ import cs0524.day.DayType;
 
 public class ToolType {
     private final String name;
-    private final EnumMap<DayType, Double> rates;
+    private final EnumMap<DayType, BigDecimal> rates;
 
-    public ToolType(String name, double rate) {
+    public ToolType(String name, String rate) {
         this(name, rate, false, false, false);
     }
 
-    public ToolType(String name, double rate, boolean freeOnWeekdays, boolean freeOnWeekends, boolean freeOnHolidays) {
+    public ToolType(String name, String rate, boolean freeOnWeekdays, boolean freeOnWeekends, boolean freeOnHolidays) {
         this(name,
-                freeOnWeekdays ? 0 : rate,
-                freeOnWeekends ? 0 : rate,
-                freeOnHolidays ? 0 : rate
+                freeOnWeekdays ? BigDecimal.ZERO : new BigDecimal(rate),
+                freeOnWeekends ? BigDecimal.ZERO : new BigDecimal(rate),
+                freeOnHolidays ? BigDecimal.ZERO : new BigDecimal(rate)
         );
     }
 
-    public ToolType(String name, double weekdayRate, double weekendRate, double holidayRate) {
+    public ToolType(String name, BigDecimal weekdayRate, BigDecimal weekendRate, BigDecimal holidayRate) {
         this(name, new EnumMap<>(Map.of(
                 DayType.WEEKDAY, weekdayRate,
                 DayType.WEEKEND, weekendRate,
@@ -31,8 +32,13 @@ public class ToolType {
         )));
     }
 
-    public ToolType(String name, EnumMap<DayType, Double> rates) {
+    public ToolType(String name, EnumMap<DayType, BigDecimal> rates) {
         this.name = name;
+        for (DayType dayType : DayType.values()) {
+            if (!rates.containsKey(dayType)) {
+                throw new IllegalArgumentException("Missing rate for " + dayType);
+            }
+        }
         this.rates = rates;
     }
 
@@ -40,7 +46,7 @@ public class ToolType {
         return name;
     }
 
-    public double getRate(LocalDate date) {
+    public BigDecimal getRate(LocalDate date) {
         return rates.get(DayType.from(date));
     }
 

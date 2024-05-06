@@ -2,6 +2,7 @@ package cs0524.tool;
 
 import cs0524.Configuration;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ public class Tool {
         return brand;
     }
 
-    public double getRate(LocalDate date) {
+    public BigDecimal getRate(LocalDate date) {
         return getType().getRate(date);
     }
 

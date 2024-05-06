@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -20,7 +21,7 @@ class ToolTest {
     static void setUp() {
         Configuration config = Configuration.singleton();
         config.addHoliday(new AbsoluteHoliday("Independence Day", 4, Month.JULY));
-        miter = new ToolType("Miter Saw", 10);
+        miter = new ToolType("Miter Saw", "10");
         config.addToolType(miter);
         tool = new Tool("MTRM", miter, "Milwaukee");
     }
@@ -57,6 +58,6 @@ class ToolTest {
 
     @Test
     void test_getRate() {
-        assertEquals(10, tool.getRate(LocalDate.of(2024, 5, 4)));
+        assertEquals(BigDecimal.TEN, tool.getRate(LocalDate.of(2024, 5, 4)));
     }
 }
