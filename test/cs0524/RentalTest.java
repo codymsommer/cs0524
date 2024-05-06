@@ -70,6 +70,7 @@ class RentalTest {
 
     @Test
     void test_getTool() {
+        assertEquals("TRNC", rental.getTool().getCode());
     }
 
     @Test

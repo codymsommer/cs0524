@@ -16,30 +16,30 @@ class RelativeHolidayTest {
     private static final RelativeHoliday thanksgiving = new RelativeHoliday("Thanksgiving", Instance.FOURTH, DayOfWeek.THURSDAY, Month.NOVEMBER);
 
     @Test
-    public void test_RelativeHoliday() {
+    void test_RelativeHoliday() {
         assertEquals(laborDay, new RelativeHoliday("Labor Day", "FIRST", "MONDAY", "SEPTEMBER"));
     }
 
     @Test
-    public void test_RelativeHoliday_caseInsensitive() {
+    void test_RelativeHoliday_caseInsensitive() {
         assertEquals(memorialDay, new RelativeHoliday("Memorial Day", "Last", "Monday", "May"));
         assertEquals(thanksgiving, new RelativeHoliday("Thanksgiving", "fourth", "thursday", "november"));
     }
 
     @Test
-    public void test_RelativeHoliday_invalidInstance() {
+    void test_RelativeHoliday_invalidInstance() {
         assertThrows(IllegalArgumentException.class,
                 () -> new RelativeHoliday("Test Day", "1st", "SUNDAY", "JUNE"));
     }
 
     @Test
-    public void test_RelativeHoliday_invalidDay() {
+    void test_RelativeHoliday_invalidDay() {
         assertThrows(IllegalArgumentException.class,
                 () -> new RelativeHoliday("Test Day", "FIRST", "SUNDAE", "JUNE"));
     }
 
     @Test
-    public void test_RelativeHoliday_invalidMonth() {
+    void test_RelativeHoliday_invalidMonth() {
         assertThrows(IllegalArgumentException.class,
                 () -> new RelativeHoliday("Test Day", "FIRST", "SUNDAY", "JUME"));
     }
@@ -91,17 +91,23 @@ class RelativeHolidayTest {
     }
 
     @Test
-    public void test_equals() {
+    void test_is_false() {
+        assertFalse(thanksgiving.is(LocalDate.of(2023, 11, 30)));
+        assertFalse(thanksgiving.is(LocalDate.of(2023, 10, 23)));
+    }
+
+    @Test
+    void test_equals() {
         assertEquals(presidentsDay, new RelativeHoliday("Presidents' Day", Instance.THIRD, DayOfWeek.MONDAY, Month.FEBRUARY));
     }
 
     @Test
-    public void test_equals_ignoreName() {
+    void test_equals_ignoreName() {
         assertEquals(thanksgiving, new RelativeHoliday("Thanksgiving Day", Instance.FOURTH, DayOfWeek.THURSDAY, Month.NOVEMBER));
     }
 
     @Test
-    public void test_equals_false() {
+    void test_equals_false() {
         assertNotEquals(columbusDay, memorialDay);
         assertNotEquals(thanksgiving, new RelativeHoliday("Thanksgiving", Instance.LAST, DayOfWeek.THURSDAY, Month.NOVEMBER));
     }

@@ -33,6 +33,8 @@ class AbsoluteHolidayTest {
                 () -> new AbsoluteHoliday("February 30th", 30, "FEBRUARY"));
         assertThrows(IllegalArgumentException.class,
                 () -> new AbsoluteHoliday("April 31st", 31, "APRIL"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new AbsoluteHoliday("December 32nd", 32, "DECEMBER"));
     }
 
     @Test
