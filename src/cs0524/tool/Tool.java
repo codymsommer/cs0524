@@ -47,4 +47,9 @@ public class Tool {
     public int hashCode() {
         return Objects.hash(code, type, brand);
     }
+
+    @Override
+    public String toString() {
+        return brand + ' ' + type;
+    }
 }

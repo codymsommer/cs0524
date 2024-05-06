@@ -4,10 +4,7 @@ import cs0524.day.holiday.Holiday;
 import cs0524.tool.Tool;
 import cs0524.tool.ToolType;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Configuration {
     private static Configuration config;
@@ -67,5 +64,9 @@ public class Configuration {
         } else {
             throw new IllegalArgumentException(code + " is not a valid Tool code");
         }
+    }
+
+    public Collection<Tool> tools() {
+        return tools.values();
     }
 }
